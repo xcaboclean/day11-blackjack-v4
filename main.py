@@ -19,6 +19,9 @@ class Deck:
     
   def display_size_deck(self):
     print(f"\n┌───────────────┐\n│{len(self.cards):03}🃏🎴 card(s)│\n└───────────────┘")
+  
+  def draw_card(self):
+    return self.cards.pop()
 
 class BlackJackGame:
   def __init__(self):
