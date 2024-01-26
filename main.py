@@ -5,6 +5,16 @@ class Card:
   def __init__(self, rank, suit):
     self.rank = rank
     self.suit = suit
+    
+  def print_card(self):
+    if self.rank == '10':
+      print(f"│{self.rank} │")
+      print(f"│ {self.suit} │")
+    else:
+      print(f"│ {self.rank} │")
+      print(f"│ {self.suit} │")
+      print("└───┘")
+
 
 class Hand:
   def __init__(self):
@@ -29,10 +39,20 @@ class Deck:
 class BlackJackGame:
   def __init__(self):
     self.deck = Deck()
+    self.player_hand = Hand()
+    self.dealer_hand = Hand()
 
+  def initial_cards(self):
+    self.player_hand.add_card(self.deck.draw_card())
+    self.dealer_hand.add_card(self.deck.draw_card())
+    self.player_hand.add_card(self.deck.draw_card())
+    self.dealer_hand.add_card(self.deck.draw_card())
+    
   def play(self):
     print(logo)
     Deck.display_size_deck(self.deck)
+    self.initial_cards()
+    
     
 if __name__ == "__main__":
   game = BlackJackGame()
