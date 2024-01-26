@@ -13,6 +13,8 @@ class Card:
       print(f"│{self.rank} │")
       print(f"│ {self.suit} │")
     else:
+      print("\n")
+      print("┌───┐")
       print(f"│ {self.rank} │")
       print(f"│ {self.suit} │")
       print("└───┘")
@@ -26,6 +28,7 @@ class Hand:
     self.cards.append(card)
 
   def print_hand(self):
+    print("Your hand:")
     for card in self.cards:
       card.print_card()
       
