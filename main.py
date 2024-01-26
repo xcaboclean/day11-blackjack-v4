@@ -8,6 +8,8 @@ class Card:
     
   def print_card(self):
     if self.rank == '10':
+      print("\n")
+      print("┌───┐")
       print(f"│{self.rank} │")
       print(f"│ {self.suit} │")
     else:
@@ -22,6 +24,11 @@ class Hand:
 
   def add_card(self,card):
     self.cards.append(card)
+
+  def print_hand(self):
+    for card in self.cards:
+      card.print_card()
+      
     
 class Deck:
   def __init__(self):
@@ -47,6 +54,7 @@ class BlackJackGame:
     self.dealer_hand.add_card(self.deck.draw_card())
     self.player_hand.add_card(self.deck.draw_card())
     self.dealer_hand.add_card(self.deck.draw_card())
+    self.player_hand.print_hand()
     
   def play(self):
     print(logo)
