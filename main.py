@@ -1,5 +1,7 @@
+from replit import clear
 from art import logo
 import random
+
 
 class Card:
   def __init__(self, rank, suit):
@@ -9,19 +11,13 @@ class Card:
   def __str__(self):
     return f"{self.rank} of {self.suit}"
     
-  def print_card(self):
+  def card_drawing(self):
+    
     if self.rank == '10':
-      print("\n")
-      print("┌───┐")
-      print(f"│{self.rank} │")
-      print(f"│ {self.suit} │")
-      print("└───┘")
+      drawn_card = ["\n","┌───┐", f"│{self.rank} │", f"│ {self.suit} │", "└───┘"]
     else:
-      print("\n")
-      print("┌───┐")
-      print(f"│ {self.rank} │")
-      print(f"│ {self.suit} │")
-      print("└───┘")
+      drawn_card = ["\n", "┌───┐", f"│ {self.rank} │", f"│ {self.suit} │", "└───┘"]
+    return " ".join(drawn_card)
 
 
 class Hand:
@@ -33,9 +29,11 @@ class Hand:
 
   def print_hand(self):
     print("Your hand:")
+    hand_drawing = ""
     for card in self.cards:
-      card.print_card()
-      
+      hand_drawing.join(card.card_drawing())
+
+    print(hand_drawing)
     
 class Deck:
   def __init__(self):
@@ -69,13 +67,28 @@ class BlackJackGame:
         print("Dealer's hand:", ', '.join(str(card) for card in self.dealer_hand.cards))
     else:
         print("Dealer's hand:", str(self.dealer_hand.cards[0]) + ", [Hidden Card]")
-
+      
+#***********************************************************
+  
+  def display_hands_with_card_drawing(self, reveal_dealer = False):
+      self.player_hand.print_hand()
+      print("Dealer's hand:")
+      if reveal_dealer:
+        self.dealer_hand.print_hand()
+        
+  #***********************************************************
+  
   def play(self):
-    print(logo)
-    Deck.display_size_deck(self.deck)
-    self.initial_cards()
-    self.display_hands(reveal_dealer=False)
-    
+    while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
+      while True:
+        clear()
+        print(logo)
+        Deck.display_size_deck(self.deck)
+        self.initial_cards()
+        self.display_hands_with_card_drawing(reveal_dealer=False)
+        resposta = input("Be continue? (y/n): ")
+        if resposta.lower() != 'y':
+            break
     
 if __name__ == "__main__":
   game = BlackJackGame()
