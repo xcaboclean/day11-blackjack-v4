@@ -10,17 +10,27 @@ class Card:
 
   def __str__(self):
     return f"{self.rank} of {self.suit}"
-    
-  def card_drawing(self):
-    
-    if self.rank == '10':
-      drawn_card = ["\n","┌───┐", f"│{self.rank} │", f"│ {self.suit} │", "└───┘"]
-    else:
-      drawn_card = ["\n", "┌───┐", f"│ {self.rank} │", f"│ {self.suit} │", "└───┘"]
-    return " ".join(drawn_card)
 
+  
+  def drawing(self, lines):
+    
+    lines[0] += "┌───┐"
+    
+    if self.rank == '10':      
+      lines[1] += f"│{self.rank} │"
+    else:
+      lines[1] += f"│ {self.rank} │"
+    
+    lines[2] += f"│ {self.suit} │"
+    lines[3] += "└───┘"
+   
+    return lines
+
+      
 
 class Hand:
+
+  
   def __init__(self):
     self.cards=[]
 
@@ -28,12 +38,15 @@ class Hand:
     self.cards.append(card)
 
   def print_hand(self):
+    lines = ["","","",""]
     print("Your hand:")
-    hand_drawing = ""
     for card in self.cards:
-      hand_drawing.join(card.card_drawing())
+      lines += card.drawing(lines)
+      
+    for l in lines:
+      print(l)
 
-    print(hand_drawing)
+    
     
 class Deck:
   def __init__(self):
@@ -60,6 +73,7 @@ class BlackJackGame:
     self.player_hand.add_card(self.deck.draw_card())
     self.dealer_hand.add_card(self.deck.draw_card())
 
+#***********************************************************
 
   def display_hands(self, reveal_dealer=False):
     print("Your hand:", ', '.join(str(card) for card in self.player_hand.cards))
@@ -76,7 +90,7 @@ class BlackJackGame:
       if reveal_dealer:
         self.dealer_hand.print_hand()
         
-  #***********************************************************
+#***********************************************************
   
   def play(self):
     while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
