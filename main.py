@@ -12,7 +12,7 @@ class Card:
     return f"{self.rank} of {self.suit}"
 
   
-  def drawing(self, lines):
+  def drawing(self, lines, reveal_dealer):
     
     lines[0] += "┌───┐"
     
@@ -23,7 +23,11 @@ class Card:
     
     lines[2] += f"│ {self.suit} │"
     lines[3] += "└───┘"
-   
+
+    if reveal_dealer:
+      lines[1] = " │ ? │"
+      lines[2] = " │ ? │"
+      
     return lines
 
       
@@ -37,12 +41,12 @@ class Hand:
   def add_card(self,card):
     self.cards.append(card)
 
-  def print_hand(self):
+  def print_hand(self, reveal_dealer):
     lines = ["","","",""]
     print("Your hand:")
     for card in self.cards:
-      lines += card.drawing(lines)
-      
+      lines += card.drawing(lines,reveal_dealer)
+    
     for l in lines:
       print(l)
 
@@ -85,10 +89,12 @@ class BlackJackGame:
 #***********************************************************
   
   def display_hands_with_card_drawing(self, reveal_dealer = False):
-      self.player_hand.print_hand()
+      self.player_hand.print_hand(False)
       print("Dealer's hand:")
       if reveal_dealer:
-        self.dealer_hand.print_hand()
+        self.dealer_hand.print_hand(True)
+      else:
+        print(self.dealer_hand.cards[0].join(hidden_card)) 
         
 #***********************************************************
   
