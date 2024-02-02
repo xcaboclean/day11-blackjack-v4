@@ -94,7 +94,7 @@ class BlackJackGame:
       if reveal_dealer:
         self.dealer_hand.print_hand(True)
       else:
-        print(self.dealer_hand.cards[0].join(hidden_card)) 
+        self.dealer_hand.print_hand(False)
         
 #***********************************************************
   
