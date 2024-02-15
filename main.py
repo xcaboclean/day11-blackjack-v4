@@ -69,20 +69,44 @@ class BlackJackGame:
     self.dealer_hand.add_card(self.deck.draw_card())
 
 
-
   def display_hands(self, reveal_dealer=False):
     print("Your hand:", ', '.join(str(card) for card in self.player_hand.cards))
     if reveal_dealer:
         print("Dealer's hand:", ', '.join(str(card) for card in self.dealer_hand.cards))
     else:
         print("Dealer's hand:", str(self.dealer_hand.cards[0]) + ", [Hidden Card]")
+
+  def player_turn(self):
+    while True:
+      self.display_hands()
+      player_value = self.player_hand.get_value()
+
+      if player_value == 21:
+        print("Blackjack! You win!")
+        return
+        
+      if player_value > 21 :
+        print("Bust! You lose.")
+        return
+        
+      action = input("Do you want to 'hit' or 'stand'").lower()
+
+      if action == 'hit':
+        self.player_hand.add_card(self.deck.draw_card())
+      elif action == 'stand':
+        break
+      else:
+        print("Invalid action. Please enter 'hit' or 'stand'.")
+
+  
   
   def play(self):
     while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
       clear()
       print(logo)
       Deck.display_size_deck(self.deck)
-      self.initial_cards()    
+      self.initial_cards()
+      self.player_turn()
     
 if __name__ == "__main__":
   game = BlackJackGame()
