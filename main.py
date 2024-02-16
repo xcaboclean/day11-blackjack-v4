@@ -49,9 +49,6 @@ class Deck:
       self.cards = [Card(rank, suit) for rank in ranks for suit in suits]
       random.shuffle(self.cards)
     
-  def display_size_deck(self):
-    print(f"\n┌───────────────┐\n│{len(self.cards):03}🃏🎴 card(s)│\n└───────────────┘")
-  
   def draw_card(self):
     return self.cards.pop()
 
@@ -121,22 +118,13 @@ class BlackJackGame:
   def play(self):
     clear()
     print(logo)
-      
-    Deck.display_size_deck(self.deck)
+
     self.initial_cards()
-      
-    Deck.display_size_deck(self.deck)
     self.player_turn()
-      
-    Deck.display_size_deck(self.deck)
     self.dealer_turn()
-      
-    clear()
-    print(logo)
     self.display_hands(reveal_dealer=True)
     result = self.determine_winner()
     print(result)
-    Deck.display_size_deck(self.deck)
       
 if __name__ == "__main__":
   while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
