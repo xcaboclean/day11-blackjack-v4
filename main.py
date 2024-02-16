@@ -103,27 +103,42 @@ class BlackJackGame:
 
   def determine_winner (self):
     player_score = self.player_hand.get_value()
-    dealer_score = self.player_hand.get_value()
-
+    dealer_score = self.dealer_hand.get_value()
+    print(f"You score -> {player_score}")
+    print(f"Dealer score -> {dealer_score}")
+    
     if player_score > 21:
       return "Player Bust! You lose!"
     elif dealer_score >21:
       return "Dealer Bust! You Win!"
     elif player_score > dealer_score:
       return "You Win!"
-    elif dealer_score> player_score:
+    elif dealer_score > player_score:
       return "You Lose!"
     else:
       return "Tie!"
   
   def play(self):
-    while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
-      clear()
-      print(logo)
-      Deck.display_size_deck(self.deck)
-      self.initial_cards()
-      self.player_turn()
-      self.dealer_turn()
+    clear()
+    print(logo)
+      
+    Deck.display_size_deck(self.deck)
+    self.initial_cards()
+      
+    Deck.display_size_deck(self.deck)
+    self.player_turn()
+      
+    Deck.display_size_deck(self.deck)
+    self.dealer_turn()
+      
+    clear()
+    print(logo)
+    self.display_hands(reveal_dealer=True)
+    result = self.determine_winner()
+    print(result)
+    Deck.display_size_deck(self.deck)
+      
 if __name__ == "__main__":
-  game = BlackJackGame()
-  game.play()
+  while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
+    game = BlackJackGame()
+    game.play()
