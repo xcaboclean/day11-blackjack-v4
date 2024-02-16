@@ -98,7 +98,9 @@ class BlackJackGame:
       else:
         print("Invalid action. Please enter 'hit' or 'stand'.")
 
-  
+  def dealer_turn(self):
+    while self.dealer_hand.get_value() < 17:
+      self.dealer_hand.add_card(self.deck.draw_card())
   
   def play(self):
     while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
@@ -107,7 +109,7 @@ class BlackJackGame:
       Deck.display_size_deck(self.deck)
       self.initial_cards()
       self.player_turn()
-    
+      self.dealer_turn()
 if __name__ == "__main__":
   game = BlackJackGame()
   game.play()
