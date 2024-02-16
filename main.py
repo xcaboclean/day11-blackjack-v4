@@ -59,10 +59,10 @@ class BlackJackGame:
     self.dealer_hand = Hand()
 
   def initial_cards(self):
-    self.player_hand.add_card(self.deck.draw_card())
-    self.dealer_hand.add_card(self.deck.draw_card())
-    self.player_hand.add_card(self.deck.draw_card())
-    self.dealer_hand.add_card(self.deck.draw_card())
+    for _ in range(2) :
+      self.player_hand.add_card(self.deck.draw_card())
+      self.dealer_hand.add_card(self.deck.draw_card())
+    
 
     
   def display_hands(self, reveal_dealer=False):
@@ -125,6 +125,7 @@ class BlackJackGame:
     self.display_hands(reveal_dealer=True)
     result = self.determine_winner()
     print(result)
+    
       
 if __name__ == "__main__":
   while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
