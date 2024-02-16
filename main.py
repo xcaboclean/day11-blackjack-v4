@@ -8,7 +8,6 @@ class Card:
   def __init__(self, rank, suit):
     
     self.rank = rank
-    
     self.suit = suit
 
   
@@ -68,7 +67,7 @@ class BlackJackGame:
     self.player_hand.add_card(self.deck.draw_card())
     self.dealer_hand.add_card(self.deck.draw_card())
 
-
+    
   def display_hands(self, reveal_dealer=False):
     print("Your hand:", ', '.join(str(card) for card in self.player_hand.cards))
     if reveal_dealer:
@@ -89,7 +88,7 @@ class BlackJackGame:
         print("Bust! You lose.")
         return
         
-      action = input("Do you want to 'hit' or 'stand'").lower()
+      action = input("Do you want to 'hit' or 'stand': ").lower()
 
       if action == 'hit':
         self.player_hand.add_card(self.deck.draw_card())
@@ -101,6 +100,21 @@ class BlackJackGame:
   def dealer_turn(self):
     while self.dealer_hand.get_value() < 17:
       self.dealer_hand.add_card(self.deck.draw_card())
+
+  def determine_winner (self):
+    player_score = self.player_hand.get_value()
+    dealer_score = self.player_hand.get_value()
+
+    if player_score > 21:
+      return "Player Bust! You lose!"
+    elif dealer_score >21:
+      return "Dealer Bust! You Win!"
+    elif player_score > dealer_score:
+      return "You Win!"
+    elif dealer_score> player_score:
+      return "You Lose!"
+    else:
+      return "Tie!"
   
   def play(self):
     while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
